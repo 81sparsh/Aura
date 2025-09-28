@@ -1,0 +1,187 @@
+# Socket.IO Implementation for Instagram Clone
+
+## Overview
+This document explains the Socket.IO implementation for real-time messaging and notifications in the Instagram clone application.
+
+## Features Implemented
+
+### 1. Real-time Messaging
+- **Backend**: Messages are sent via socket.io when a new message is created
+- **Frontend**: Messages are received in real-time using the `useGetRTM` hook
+- **Event**: `newMessage` - Emitted when a new message is sent
+
+### 2. Online Users
+- **Backend**: Tracks connected users and broadcasts online status
+- **Frontend**: Displays online/offline status in chat interface
+- **Event**: `getOnlineUsers` - Broadcasts list of online user IDs
+
+### 3. Notifications
+- **Like Notifications**: When someone likes a post
+- **Follow Notifications**: When someone follows a user
+- **Comment Notifications**: When someone comments on a post
+- **Event**: `notification` - Emitted for all notification types
+
+## Backend Implementation
+
+### Socket Server Setup (`backend/socket/socket.js`)
+```javascript
+const io = new Server(server, {
+    cors: {
+        origin: process.env.URL || 'http://localhost:5173',
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
+});
+
+// Map to store userId -> socketId
+const userSocketMap = {}; // userId: socketId
+
+export const getReceiverSocketId = (receiverId) => userSocketMap[receiverId];
+
+io.on('connection', (socket) => {
+    const userId = socket.handshake.query.userId;
+    if (userId) {
+        userSocketMap[userId] = socket.id;
+    }
+
+    io.emit('getOnlineUsers', Object.keys(userSocketMap));
+
+    socket.on('disconnect', () => {
+        if (userId) {
+            delete userSocketMap[userId];
+        }
+        io.emit('getOnlineUsers', Object.keys(userSocketMap));
+    });
+});
+```
+
+### Message Controller (`backend/controllers/message.controller.js`)
+```javascript
+// Socket.io real-time message
+const receiverSocketId = getReceiverSocketId(receiverId);
+if (receiverSocketId) {
+    io.to(receiverSocketId).emit('newMessage', newMessage);
+}
+```
+
+### Notification Implementation
+- **Like Notifications**: In `likePost` function
+- **Follow Notifications**: In `followOrUnfollowUser` function  
+- **Comment Notifications**: In `addComment` function
+
+## Frontend Implementation
+
+### Socket Connection (`frontend/src/App.jsx`)
+```javascript
+useEffect(() => {
+    if (user) {
+        const socketio = io('http://localhost:5000', {
+            query: {
+                userId: user?._id
+            },
+            transports: ['websocket']
+        });
+        dispatch(setSocket(socketio));
+
+        // Listen to events
+        socketio.on('getOnlineUsers', (onlineUsers) => {
+            dispatch(setOnlineUsers(onlineUsers));
+        });
+
+        socketio.on('notification', (notification) => {
+            dispatch(setLikeNotification(notification));
+        });
+
+        return () => {
+            socketio.close();
+            dispatch(setSocket(null));
+        }
+    }
+}, [user, dispatch]);
+```
+
+### Real-time Message Hook (`frontend/src/hooks/useGetRTM.jsx`)
+```javascript
+useEffect(() => {
+    if (socket) {
+        const handleNewMessage = (newMessage) => {
+            dispatch(setMessages([...messages, newMessage]));
+        };
+
+        socket.on('newMessage', handleNewMessage);
+
+        return () => {
+            socket.off('newMessage', handleNewMessage);
+        };
+    }
+}, [socket, messages, dispatch]);
+```
+
+### Notification Toast (`frontend/src/components/NotificationToast.jsx`)
+- Displays toast notifications for all notification types
+- Uses Sonner for toast notifications
+
+## Events
+
+### Backend Events (Emitted)
+- `getOnlineUsers` - List of online user IDs
+- `newMessage` - New message object
+- `notification` - Notification object
+
+### Frontend Events (Listened)
+- `getOnlineUsers` - Updates online users list
+- `newMessage` - Adds new message to chat
+- `notification` - Shows notification toast
+
+## Testing
+
+### Manual Testing
+1. Start the backend server: `npm start` (in backend directory)
+2. Start the frontend: `npm run dev` (in frontend directory)
+3. Open multiple browser tabs/windows
+4. Test messaging between users
+5. Test notifications (like, follow, comment)
+
+### Automated Testing
+Run the test script: `node test-socket.js` (in backend directory)
+
+## Configuration
+
+### Environment Variables
+- `PORT`: Backend server port (default: 5000)
+- `URL`: Frontend URL for CORS (default: http://localhost:5173)
+
+### CORS Configuration
+```javascript
+cors: {
+    origin: process.env.URL || 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+    credentials: true
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+1. **Connection Failed**: Check if backend is running on correct port
+2. **CORS Errors**: Verify CORS configuration matches frontend URL
+3. **Messages Not Received**: Check socket connection and event handlers
+4. **Notifications Not Showing**: Verify notification event listeners
+
+### Debug Steps
+1. Check browser console for errors
+2. Verify socket connection in Network tab
+3. Check backend logs for socket events
+4. Test with multiple browser windows
+
+## Security Considerations
+- User authentication required for socket connection
+- Socket IDs are mapped to authenticated user IDs
+- CORS is properly configured for security
+- Only authenticated users can send/receive messages
+
+## Performance Notes
+- Socket connections are cleaned up on disconnect
+- User mapping is updated in real-time
+- Events are properly removed to prevent memory leaks
+- Efficient event handling with proper cleanup
