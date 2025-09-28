@@ -15,7 +15,7 @@ import { setSocket } from './redux/socketSlice';
 import { setOnlineUsers } from './redux/chatSlice';
 import { setLikeNotification, addMessageNotification } from './redux/rtnSlice';
 import ProtectedRoutes from './components/ProtectedRoutes';
-import RightSidebar from "./components/RightSidebar";
+import RightSideBar from "./components/RightSideBar";
 
 const browserRouter = createBrowserRouter([
   {
