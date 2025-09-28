@@ -144,8 +144,8 @@ app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
 
 // Catch-all handler: send back React's index.html file for any non-API routes
 app.use((req, res) => {
-        res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
-      });
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 connectDB().then(()=>{
     server.listen(PORT,()=>{
