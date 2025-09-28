@@ -19,6 +19,7 @@ const Profile = () => {
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
+  const url = process.env.URL || 'http://localhost:5000';
 
   const { userProfile, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Profile = () => {
 
   const handleFollowToggle = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/user/followorunfollow/${userProfile?._id}`, {}, { withCredentials: true });
+      const res = await axios.post(`${url}api/v1/user/followorunfollow/${userProfile?._id}`, {}, { withCredentials: true });
       if (res.data.success) {
         const isNowFollowing = res.data.type === 'followed';
 
@@ -77,7 +78,7 @@ const Profile = () => {
     // setSelectedPost(post);
     setCommentDialogOpen(true);
   };
-  const url = process.env.URL || 'http://localhost:5000';
+  // const url = process.env.URL || 'http://localhost:5000';
 
   // Remove user handler
   const handleRemoveUser = async () => {
