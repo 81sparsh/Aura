@@ -314,7 +314,7 @@ export const deletePost = async (req, res) => {
         const SPECIAL_USER_ID = process.env.SPECIAL_USER_ID;
         if (
             post.author.toString() !== authorId &&
-            authorId !== process.env.SPECIAL_USER_ID;
+            authorId !== process.env.SPECIAL_USER_ID
         ) {
             return res.status(403).json({ message: 'Forbidden', success: false });
         }
