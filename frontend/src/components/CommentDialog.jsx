@@ -15,6 +15,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const { selectedPost, posts } = useSelector(store => store.post);
   const [comment, setComment] = useState([]);
   const dispatch = useDispatch();
+  const url = process.env.URL || 'http://localhost:5000';
 
   useEffect(() => {
     if (selectedPost) {
@@ -34,7 +35,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const sendMessageHandler = async () => {
 
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/post/${selectedPost?._id}/comment`, { text }, {
+      const res = await axios.post(`${url}/api/v1/post/${selectedPost?._id}/comment`, { text }, {
         headers: {
           'Content-Type': 'application/json'
         },

@@ -77,6 +77,7 @@ const Profile = () => {
     // setSelectedPost(post);
     setCommentDialogOpen(true);
   };
+  const url = process.env.URL || 'http://localhost:5000';
 
   // Remove user handler
   const handleRemoveUser = async () => {
@@ -86,7 +87,7 @@ const Profile = () => {
     
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/v1/user/remove/${userProfile?._id}`,
+        `${url}/api/v1/user/remove/${userProfile?._id}`,
         { withCredentials: true }
       );
       console.log("API Response:", res.data);

@@ -10,13 +10,14 @@ const SearchBox = ({ closeSearch }) => {
   const [loading, setLoading] = useState(false);
   const [following, setFollowing] = useState({});
   const { user } = useSelector(store => store.auth);
+  const url = process.env.URL || 'http://localhost:5000';
 
   // Fetch all users on mount or when query is cleared
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5000/api/v1/user/search?query=`, { withCredentials: true });
+        const res = await axios.get(`${url}/api/v1/user/search?query=`, { withCredentials: true });
         setResults(res.data.users || []);
         const followingMap = {};
         (res.data.users || []).forEach(u => {
@@ -45,7 +46,7 @@ const SearchBox = ({ closeSearch }) => {
 
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/v1/user/search?query=${encodeURIComponent(value)}`, { withCredentials: true });
+      const res = await axios.get(`${url}/api/v1/user/search?query=${encodeURIComponent(value)}`, { withCredentials: true });
       setResults(res.data.users || []);
       const followingMap = {};
       (res.data.users || []).forEach(u => {
@@ -61,7 +62,7 @@ const SearchBox = ({ closeSearch }) => {
 
   const handleFollow = async (targetUserId) => {
     try {
-      await axios.post(`http://localhost:5000/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
+      await axios.post(`${url}/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
       setFollowing(prev => ({ ...prev, [targetUserId]: !prev[targetUserId] }));
     } catch (err) {
       // Optionally show error

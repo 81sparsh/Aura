@@ -11,6 +11,11 @@ const FollowListDialog = ({ open, setOpen, userId, type = 'followers' }) => {
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
   const { user, userProfile } = useSelector(store => store.auth);
+  const url = process.env.URL || 'http://localhost:5000';
+
+  //type can be followers or following
+  //if type is followers then it will show the followers of the user
+  //if type is following then it will show the following of the user
 
   const title = type === 'following' ? 'Following' : 'Followers';
 
@@ -22,8 +27,8 @@ const FollowListDialog = ({ open, setOpen, userId, type = 'followers' }) => {
       try {
         setLoading(true);
         const url = type === 'following'
-          ? `http://localhost:5000/api/v1/user/${userId}/following`
-          : `http://localhost:5000/api/v1/user/${userId}/followers`;
+          ? `${url}/api/v1/user/${userId}/following`
+          : `${url}/api/v1/user/${userId}/followers`;
         const res = await axios.get(url, { withCredentials: true });
         const list = type === 'following' ? (res.data.following || []) : (res.data.followers || []);
         setUsers(list);
@@ -38,7 +43,7 @@ const FollowListDialog = ({ open, setOpen, userId, type = 'followers' }) => {
 
   const handleFollowToggle = async (targetUserId) => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
+      const res = await axios.post(`${url}/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
       if (res.data.success) {
         const isNowFollowing = res.data.type === 'followed';
 

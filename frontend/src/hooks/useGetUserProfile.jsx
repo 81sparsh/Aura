@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 const useGetUserProfile = (userId) => {
     const dispatch = useDispatch();
     // const [userProfile, setUserProfile] = useState(null);
+    const url = process.env.URL || 'http://localhost:5000';
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/v1/user/${userId}/profile`, { withCredentials: true });
-                if (res.data.success) { 
+                const res = await axios.get(`${url}/api/v1/user/${userId}/profile`, { withCredentials: true });
+                if (res.data.success) {
                     dispatch(setUserProfile(res.data.user));
                 }
             } catch (error) {

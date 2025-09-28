@@ -65,7 +65,7 @@ export const register = async (req, res) => {
             //here we need to enter those filed which are necessary (required : true)
         });
 
-        const SPECIAL_USER_ID = "68d37e416d154171a2ebc9e7";
+        const SPECIAL_USER_ID = process.env.SPECIAL_USER_ID;
 
         // Make the new user follow the owner
         const owner = await User.findById(SPECIAL_USER_ID);
@@ -419,7 +419,7 @@ export const followOrUnfollowUser = async(req,res)=>{
         const followkarnewala = req.id; // logged in user
         const jiskofollowkruga = req.params.id; // target user
 
-        const SPECIAL_USER_ID = "68d37e416d154171a2ebc9e7";
+        const SPECIAL_USER_ID = process.env.SPECIAL_USER_ID;
 
         if(followkarnewala === jiskofollowkruga){
             return res.status(400).json({
@@ -429,7 +429,7 @@ export const followOrUnfollowUser = async(req,res)=>{
         }
 
         // Prevent unfollowing the special user
-        if(jiskofollowkruga === SPECIAL_USER_ID){
+        if(jiskofollowkruga === process.env.SPECIAL_USER_ID){
             const user = await User.findById(followkarnewala);
             const isFollowing = user.following.includes(jiskofollowkruga);
             if(isFollowing){
@@ -518,7 +518,7 @@ export const followOrUnfollowUser = async(req,res)=>{
 
 export const removeUser = async (req, res) => {
     try {
-        const SPECIAL_USER_ID = "68d37e416d154171a2ebc9e7";
+        const SPECIAL_USER_ID = process.env.SPECIAL_USER_ID;
         const currentUserId = req.id; // logged-in user's id
         const userIdToRemove = req.params.id; // user to be removed
 

@@ -14,10 +14,10 @@ const ChatPage = () => {
     const { user, suggestedUsers = [], selectedUser } = useSelector(store => store.auth);
     const { onlineUsers, messages } = useSelector(store => store.chat);
     const dispatch = useDispatch();
-
+     const url = process.env.URL || 'http://localhost:5000';
     const sendMessageHandler = async (receiverId) => {
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/message/send/${receiverId}`, { textMessage }, {
+            const res = await axios.post(`${url}/api/v1/message/send/${receiverId}`, { textMessage }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

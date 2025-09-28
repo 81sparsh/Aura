@@ -11,10 +11,11 @@ const SuggestedBox = () => {
     const dispatch = useDispatch();
     const { suggestedUsers = [], user: authUser } = useSelector(store => store.auth);
     const scrollRef = useRef();
+    const url = process.env.URL || 'http://localhost:5000';
 
     const handleFollow = async (targetUserId) => {
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
+            const res = await axios.post(`${url}/api/v1/user/followorunfollow/${targetUserId}`, {}, { withCredentials: true });
             if (res.data.success) {
                 const isNowFollowing = res.data.type === 'followed';
 

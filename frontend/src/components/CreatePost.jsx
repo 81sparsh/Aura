@@ -19,6 +19,7 @@ const CreatePost = ({ open, setOpen }) => {
   const {user} = useSelector(store=>store.auth);
   const {posts} = useSelector(store=>store.post);
   const dispatch = useDispatch();
+  const url = process.env.URL || 'http://localhost:5000';
 
   const fileChangeHandler = async (e) => {
     const file = e.target.files?.[0];
@@ -35,7 +36,7 @@ const CreatePost = ({ open, setOpen }) => {
     if (imagePreview) formData.append("image", file);
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:5000/api/v1/post/addpost', formData, {
+      const res = await axios.post(`${url}/api/v1/post/addpost`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

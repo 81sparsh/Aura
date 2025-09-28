@@ -7,6 +7,7 @@ import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner'; // or 'react-toastify' if you use that
 
+
 const Signup = () => {
 
      const [input, setInput] = useState({
@@ -20,7 +21,7 @@ const Signup = () => {
     const {user} = useSelector(store=>store.auth);
     const navigate = useNavigate();
     //this is from react router dom to navigate to different pages
-
+const url = process.env.URL || 'http://localhost:5000';
 
        const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -30,7 +31,7 @@ const Signup = () => {
         e.preventDefault(); //if we not do this..then our page will get refresh
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:5000/api/v1/user/register', input, {
+            const res = await axios.post(`${url}/api/v1/user/register`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

@@ -14,6 +14,7 @@ const EditProfile = () => {
     const imageRef = useRef();
     const { user } = useSelector(store => store.auth);
     const [loading, setLoading] = useState(false);
+    const url = process.env.URL || 'http://localhost:5000';
     const [input, setInput] = useState({
         profilePhoto: user?.profilePicture,
         bio: user?.bio,
@@ -48,7 +49,7 @@ const EditProfile = () => {
         }
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:5000/api/v1/user/profile/edit', formData, {
+            const res = await axios.post(`${url}/api/v1/user/profile/edit`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

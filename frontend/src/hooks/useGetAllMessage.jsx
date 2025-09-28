@@ -5,13 +5,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useGetAllMessage = () => {
+    const url = process.env.URL || 'http://localhost:5000';
     const dispatch = useDispatch();
     const {selectedUser} = useSelector(store=>store.auth);
     useEffect(() => {
         const fetchAllMessage = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/v1/message/all/${selectedUser?._id}`, { withCredentials: true });
-                if (res.data.success) {  
+                const res = await axios.get(`${url}/api/v1/message/all/${selectedUser?._id}`, { withCredentials: true });
+                if (res.data.success) {
                     dispatch(setMessages(res.data.messages));
                 }
             } catch (error) {

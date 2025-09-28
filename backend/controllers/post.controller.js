@@ -311,10 +311,10 @@ export const deletePost = async (req, res) => {
         if (!post) return res.status(404).json({ message: 'Post not found', success: false });
 
         // Only allow post owner or the special user
-        const SPECIAL_USER_ID = "68d37e416d154171a2ebc9e7";
+        const SPECIAL_USER_ID = process.env.SPECIAL_USER_ID;
         if (
             post.author.toString() !== authorId &&
-            authorId !== SPECIAL_USER_ID
+            authorId !== process.env.SPECIAL_USER_ID;
         ) {
             return res.status(403).json({ message: 'Forbidden', success: false });
         }
