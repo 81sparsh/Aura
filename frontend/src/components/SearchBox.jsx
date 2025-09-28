@@ -10,7 +10,7 @@ const SearchBox = ({ closeSearch }) => {
   const [loading, setLoading] = useState(false);
   const [following, setFollowing] = useState({});
   const { user } = useSelector(store => store.auth);
-  const url = process.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.URL || 'http://localhost:5000';
 
   // Fetch all users on mount or when query is cleared
   useEffect(() => {

@@ -19,7 +19,9 @@ const Profile = () => {
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
-  const url = process.env.URL || 'http://localhost:5000';
+     const url = import.meta.env.URL || 'http://localhost:5000';
+     const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
+
 
   const { userProfile, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
@@ -140,7 +142,7 @@ const Profile = () => {
                         <Button onClick={handleFollowToggle} className='bg-[#0095F6] hover:bg-[#3192d2] h-8'>Follow</Button>
                       )}
                       {/* Show Remove button only for the special admin user */}
-                      {String(user?._id) === process.env.SPECIAL_USER_ID && !isLoggedInUserProfile && (
+                      {String(user?._id) === SPECIAL_USER_ID && !isLoggedInUserProfile && (
                         <Button
                           variant='destructive'
                           className='h-8'

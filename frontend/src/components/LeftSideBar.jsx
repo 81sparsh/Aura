@@ -24,7 +24,7 @@ const LeftSidebar = () => {
     const [searchOpen, setSearchOpen] = useState(false);
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [messagePopoverOpen, setMessagePopoverOpen] = useState(false);
-    const url = process.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.URL || 'http://localhost:5000';
 
     const logoutHandler = async () => {
         try {

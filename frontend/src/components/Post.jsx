@@ -22,8 +22,9 @@ const Post = ({ post }) => {
     const [postLike, setPostLike] = useState(post.likes.length);
     const [comment, setComment] = useState(post.comments);
     const dispatch = useDispatch();
-    const url = process.env.URL || 'http://localhost:5000';
+        const url = import.meta.env.URL || 'http://localhost:5000';
 
+        const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
         if (inputText.trim()) {
@@ -134,7 +135,7 @@ const Post = ({ post }) => {
                         }
                         <Button variant='ghost' className="cursor-pointer w-fit">Add to favorites</Button>
                         {
-                            (user && (user?._id === post?.author?._id || user?._id === process.env.SPECIAL_USER_ID)) && (
+                            (user && (user?._id === post?.author?._id || user?._id === SPECIAL_USER_ID)) && (
                                 <Button onClick={deletePostHandler} variant='ghost' className="cursor-pointer w-fit">Delete</Button>
                             )
                         }

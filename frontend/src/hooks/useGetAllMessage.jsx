@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useGetAllMessage = () => {
-    const url = process.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.URL || 'http://localhost:5000';
     const dispatch = useDispatch();
     const {selectedUser} = useSelector(store=>store.auth);
     useEffect(() => {

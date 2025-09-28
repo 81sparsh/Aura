@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 
 const useGetSuggestedUsers = () => {
-    const url = process.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.URL || 'http://localhost:5000';
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchSuggestedUsers = async () => {

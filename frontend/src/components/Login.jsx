@@ -19,7 +19,8 @@ const Login = () => {
     const {user} = useSelector(store=>store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const url = process.env.URL || 'http://localhost:5000';
+        const url = import.meta.env.URL || 'http://localhost:5000';
+
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });

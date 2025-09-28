@@ -21,7 +21,7 @@ const Signup = () => {
     const {user} = useSelector(store=>store.auth);
     const navigate = useNavigate();
     //this is from react router dom to navigate to different pages
-const url = process.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.URL || 'http://localhost:5000';
 
        const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });

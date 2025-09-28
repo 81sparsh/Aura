@@ -58,7 +58,7 @@ function App() {
   const { user } = useSelector(store => store.auth);
   const { socket } = useSelector(store => store.socketio);
   const dispatch = useDispatch();
-  const url = process.env.URL || 'http://localhost:5000';
+   const url = import.meta.env.URL || 'http://localhost:5000';
 
   useEffect(() => {
     if (user) {
