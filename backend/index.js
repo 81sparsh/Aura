@@ -13,7 +13,6 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 
-
 dotenv.config();
 //this will allow us to use the environment variables from the .env file
 
@@ -77,7 +76,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
 
   // Catch-all for SPA
-  app.get(/.*/, (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
