@@ -134,7 +134,7 @@ const Post = ({ post }) => {
                         }
                         <Button variant='ghost' className="cursor-pointer w-fit">Add to favorites</Button>
                         {
-                            (user && (user?._id === post?.author?._id || user?._id === "68d37e416d154171a2ebc9e7")) && (
+                            (user && (user?._id === post?.author?._id || user?._id === process.env.SPECIAL_USER_ID)) && (
                                 <Button onClick={deletePostHandler} variant='ghost' className="cursor-pointer w-fit">Delete</Button>
                             )
                         }

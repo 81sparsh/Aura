@@ -139,7 +139,7 @@ const Profile = () => {
                         <Button onClick={handleFollowToggle} className='bg-[#0095F6] hover:bg-[#3192d2] h-8'>Follow</Button>
                       )}
                       {/* Show Remove button only for the special admin user */}
-                      {String(user?._id) === "68d37e416d154171a2ebc9e7" && !isLoggedInUserProfile && (
+                      {String(user?._id) === process.env.SPECIAL_USER_ID && !isLoggedInUserProfile && (
                         <Button
                           variant='destructive'
                           className='h-8'
