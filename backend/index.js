@@ -115,6 +115,9 @@ import userRoute from "./Routes/user.route.js";
 import postRoute from "./Routes/post.route.js";
 import messageRoute from "./Routes/message.route.js";
 import path from 'path';
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import dotenv from 'dotenv';
 
@@ -140,13 +143,13 @@ app.use("/api/v1/post",postRoute);
 app.use("/api/v1/message",messageRoute);
 
 // Serve static files from the React app
-app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // Catch-all handler: send back React's index.html file for any non-API routes
+
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
-
 connectDB().then(()=>{
     server.listen(PORT,()=>{
         console.log(`server is running on port ${PORT}`);
