@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 
 const useGetAllPost = () => {
-    const url = import.meta.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.VITE_URL || 'http://localhost:5000';
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchAllPost = async () => {

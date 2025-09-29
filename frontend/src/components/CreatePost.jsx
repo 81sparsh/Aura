@@ -19,7 +19,7 @@ const CreatePost = ({ open, setOpen }) => {
   const {user} = useSelector(store=>store.auth);
   const {posts} = useSelector(store=>store.post);
   const dispatch = useDispatch();
- const url = import.meta.env.URL || 'http://localhost:5000';
+ const url = import.meta.env.VITE_URL || 'http://localhost:5000';
   const fileChangeHandler = async (e) => {
     const file = e.target.files?.[0];
     if (file) {

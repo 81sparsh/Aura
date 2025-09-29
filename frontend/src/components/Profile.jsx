@@ -19,7 +19,7 @@ const Profile = () => {
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
-     const url = import.meta.env.URL || 'http://localhost:5000';
+     const url = import.meta.env.VITE_URL || 'http://localhost:5000';
      const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
 
 

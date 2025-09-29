@@ -15,7 +15,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const { selectedPost, posts } = useSelector(store => store.post);
   const [comment, setComment] = useState([]);
   const dispatch = useDispatch();
- const url = import.meta.env.URL || 'http://localhost:5000';
+ const url = import.meta.env.VITE_URL || 'http://localhost:5000';
   useEffect(() => {
     if (selectedPost) {
       setComment(selectedPost.comments);

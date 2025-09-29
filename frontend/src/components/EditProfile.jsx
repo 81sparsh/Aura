@@ -14,7 +14,7 @@ const EditProfile = () => {
     const imageRef = useRef();
     const { user } = useSelector(store => store.auth);
     const [loading, setLoading] = useState(false);
-    const url = import.meta.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.VITE_URL || 'http://localhost:5000';
     const [input, setInput] = useState({
         profilePhoto: user?.profilePicture,
         bio: user?.bio,

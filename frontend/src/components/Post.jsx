@@ -22,7 +22,7 @@ const Post = ({ post }) => {
     const [postLike, setPostLike] = useState(post.likes.length);
     const [comment, setComment] = useState(post.comments);
     const dispatch = useDispatch();
-        const url = import.meta.env.URL || 'http://localhost:5000';
+        const url = import.meta.env.VITE_URL || 'http://localhost:5000';
 
         const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
     const changeEventHandler = (e) => {

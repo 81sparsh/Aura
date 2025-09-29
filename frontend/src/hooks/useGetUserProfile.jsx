@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 const useGetUserProfile = (userId) => {
     const dispatch = useDispatch();
     // const [userProfile, setUserProfile] = useState(null);
-    const url = import.meta.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.VITE_URL || 'http://localhost:5000';
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {

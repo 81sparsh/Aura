@@ -11,7 +11,7 @@ const SuggestedBox = () => {
     const dispatch = useDispatch();
     const { suggestedUsers = [], user: authUser } = useSelector(store => store.auth);
     const scrollRef = useRef();
-    const url = import.meta.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.VITE_URL || 'http://localhost:5000';
 
     const handleFollow = async (targetUserId) => {
         try {

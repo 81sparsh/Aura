@@ -11,7 +11,7 @@ const FollowListDialog = ({ open, setOpen, userId, type = 'followers' }) => {
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
   const { user, userProfile } = useSelector(store => store.auth);
-     const url = import.meta.env.URL || 'http://localhost:5000';
+     const url = import.meta.env.VITE_URL || 'http://localhost:5000';
 
 
   //type can be followers or following

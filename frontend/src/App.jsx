@@ -58,7 +58,8 @@ function App() {
   const { user } = useSelector(store => store.auth);
   const { socket } = useSelector(store => store.socketio);
   const dispatch = useDispatch();
-   const url = import.meta.env.URL || 'http://localhost:5000';
+   const url = import.meta.env.VITE_URL || 'http://localhost:5000';
+   console.log("url is workking undefune" + import.meta.env.VITE_URL);
 
   useEffect(() => {
     if (user) {

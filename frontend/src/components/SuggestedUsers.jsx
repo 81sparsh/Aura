@@ -8,7 +8,7 @@ import { setAuthUser, setSuggestedUsers } from '@/redux/authSlice';
 
 const SuggestedUsers = () => {
     const dispatch = useDispatch();
-    const url = import.meta.env.URL || 'http://localhost:5000';
+    const url = import.meta.env.VITE_URL || 'http://localhost:5000';
     const { suggestedUsers = [], user: authUser } = useSelector(store => store.auth);
 
     const handleFollow = async (targetUserId) => {
