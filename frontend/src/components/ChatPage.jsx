@@ -8,6 +8,15 @@ import { MessageCircleCode } from 'lucide-react';
 import Messages from './Messages';
 import axios from 'axios';
 import { setMessages } from '@/redux/chatSlice';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  blacklist: ['socketio'] // <-- Exclude socket slice from persistence
+};
 
 const ChatPage = () => {
     const [textMessage, setTextMessage] = useState("");
