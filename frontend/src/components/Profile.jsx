@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { AtSign, Heart, MessageCircle } from 'lucide-react';
+import { AtSign, Heart, MessageCircle, Lock } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { setAuthUser, setUserProfile } from '@/redux/authSlice';
@@ -20,7 +20,7 @@ const Profile = () => {
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
      const url = import.meta.env.VITE_URL || 'http://localhost:5000';
-     const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
+     const SPECIAL_USER_ID = import.meta.env.VITE_SPECIAL_USER_ID || '68d37e416d154171a2ebc9e7';
 
 
   const { userProfile, user } = useSelector(store => store.auth);
@@ -38,6 +38,7 @@ const Profile = () => {
 
   const isLoggedInUserProfile = user?._id === userProfile?._id;
   const isFollowing = !!user?.following?.some(id => String(id) === String(userProfile?._id));
+  const isPrivateBlocked = !!userProfile?.isPrivate && !isLoggedInUserProfile && !isFollowing;
 
   const handleFollowToggle = async () => {
     try {
@@ -185,34 +186,46 @@ const Profile = () => {
             <span className='py-3 cursor-pointer'>REELS</span>
             <span className='py-3 cursor-pointer'>TAGS</span>
           </div>
-          <div className='grid grid-cols-3 gap-2 mt-4'>
-            {
-              displayedPost?.map((post) => {
-                const keyValue = post?._id || (typeof post === 'string' ? post : JSON.stringify(post));
-                return (
-                  <div
-                    key={keyValue}
-                    className='relative group cursor-pointer'
-                    onClick={() => handlePostClick(post)}
-                  >
-                    <img src={post.image} alt='postimage' className='rounded-md my-2 w-full aspect-square object-cover border border-gray-200' />
-                    <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-90 transition-opacity duration-300'>
-                      <div className='flex items-center text-white space-x-4'>
-                        <button className='flex items-center gap-2 hover:text-gray-300'>
-                          <Heart />
-                          <span>{post?.likes?.length || 0}</span>
-                        </button>
-                        <button className='flex items-center gap-2 hover:text-gray-300'>
-                          <MessageCircle />
-                          <span>{post?.comments?.length || 0}</span>
-                        </button>
+          {
+            isPrivateBlocked ? (
+              <div className='flex flex-col items-center justify-center text-center py-16 gap-3'>
+                <div className='h-20 w-20 rounded-full border border-gray-300 flex items-center justify-center'>
+                  <Lock className='text-gray-500' />
+                </div>
+                <p className='font-semibold'>This account is private</p>
+                <p className='text-sm text-gray-500'>Follow to see their photos and videos.</p>
+              </div>
+            ) : (
+              <div className='grid grid-cols-3 gap-2 mt-4'>
+                {
+                  displayedPost?.map((post) => {
+                    const keyValue = post?._id || (typeof post === 'string' ? post : JSON.stringify(post));
+                    return (
+                      <div
+                        key={keyValue}
+                        className='relative group cursor-pointer'
+                        onClick={() => handlePostClick(post)}
+                      >
+                        <img src={post.image} alt='postimage' className='rounded-md my-2 w-full aspect-square object-cover border border-gray-200' />
+                        <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-90 transition-opacity duration-300'>
+                          <div className='flex items-center text-white space-x-4'>
+                            <button className='flex items-center gap-2 hover:text-gray-300'>
+                              <Heart />
+                              <span>{post?.likes?.length || 0}</span>
+                            </button>
+                            <button className='flex items-center gap-2 hover:text-gray-300'>
+                              <MessageCircle />
+                              <span>{post?.comments?.length || 0}</span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
+                    )
+                  })
+                }
+              </div>
+            )
+          }
         </div>
         <SuggestedBox />
       </div>

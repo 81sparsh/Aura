@@ -162,7 +162,8 @@ export const login = async(req,res)=>{
       
         return res.cookie("token", token,{
             httpOnly:true,
-            sameSite:'lax', // lax is the default value
+            sameSite:'none', // Changed to 'none' for cross-origin requests
+            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
             maxAge: 24 * 60 * 60 * 1000, //1 day
             //this maxage is in milliseconds
             //24 hours * 60 minutes * 60 seconds * 1000 milliseconds

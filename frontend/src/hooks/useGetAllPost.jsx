@@ -10,13 +10,22 @@ const useGetAllPost = () => {
     useEffect(() => {
         const fetchAllPost = async () => {
             try {
-                const res = await axios.get(`${url}/api/v1/post/all`, { withCredentials: true });
+                console.log('Fetching posts from:', `${url}/api/v1/post/all`);
+                const res = await axios.get(`${url}/api/v1/post/all`, { 
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
                 if (res.data.success) {
-                    console.log(res.data.posts);
+                    console.log('Posts fetched successfully:', res.data.posts);
                     dispatch(setPosts(res.data.posts));
                 }
             } catch (error) {
-                console.log(error);
+                console.error('Error fetching posts:', error);
+                if (error.response?.status === 401) {
+                    console.error('Authentication failed - user not logged in');
+                }
             }
         }
         fetchAllPost();

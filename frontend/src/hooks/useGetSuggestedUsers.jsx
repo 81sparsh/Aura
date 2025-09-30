@@ -10,12 +10,22 @@ const useGetSuggestedUsers = () => {
     useEffect(() => {
         const fetchSuggestedUsers = async () => {
             try {
-                const res = await axios.get(`${url}/api/v1/user/suggested`, { withCredentials: true });
+                console.log('Fetching suggested users from:', `${url}/api/v1/user/suggested`);
+                const res = await axios.get(`${url}/api/v1/user/suggested`, { 
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
                 if (res.data.success) { 
+                    console.log('Suggested users fetched successfully:', res.data.users);
                     dispatch(setSuggestedUsers(res.data.users));
                 }
             } catch (error) {
-                console.log(error);
+                console.error('Error fetching suggested users:', error);
+                if (error.response?.status === 401) {
+                    console.error('Authentication failed - user not logged in');
+                }
             }
         }
         fetchSuggestedUsers();

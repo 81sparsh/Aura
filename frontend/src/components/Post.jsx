@@ -24,7 +24,7 @@ const Post = ({ post }) => {
     const dispatch = useDispatch();
         const url = import.meta.env.VITE_URL || 'http://localhost:5000';
 
-        const SPECIAL_USER_ID = import.meta.env.SPECIAL_USER_ID || '6485f0f4f0c2b0d1c3e8b456'; // Replace with your actual special user ID
+        const SPECIAL_USER_ID = import.meta.env.VITE_SPECIAL_USER_ID || '68d37e416d154171a2ebc9e7';
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
         if (inputText.trim()) {
