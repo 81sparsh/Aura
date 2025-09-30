@@ -82,7 +82,7 @@ const ChatPage = () => {
                             <Avatar>
                                 <AvatarImage src={selectedUser?.profilePicture || undefined} alt='profile' />
                                 <AvatarFallback>
-                                    <img src="/profile.jpeg" alt="default" className="w-full h-full object-cover" />
+                                    <img src="/profile.jpeg"  alt="default" className="w-full h-full object-cover" />
                                 </AvatarFallback>
                             </Avatar>
                             <div className='flex flex-col'>

@@ -117,7 +117,7 @@ const Profile = () => {
             <Avatar className='h-32 w-32'>
               <AvatarImage src={userProfile?.profilePicture} alt="profilephoto" />
               <AvatarFallback>
-              <Link to ="/account/edit"> <img src={userProfile?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></Link>
+              <Link to ="/account/edit"> <img src={userProfile?.profilePicture || '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></Link>
               </AvatarFallback>
             </Avatar>
           </section>

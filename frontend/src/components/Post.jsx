@@ -116,7 +116,7 @@ const Post = ({ post }) => {
                 <div className='flex items-center gap-2'>
                     <Avatar>
                       <Link to = {`/profile/${post?.author?._id}`}><AvatarImage src={post.author?.profilePicture} alt="post_image" /></Link>
-                        <Link to = {`/profile/${post?.author?._id}`}><AvatarFallback>  <img src={post?.author?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></AvatarFallback></Link>
+                        <Link to = {`/profile/${post?.author?._id}`}><AvatarFallback>  <img src={post?.author?.profilePicture || '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></AvatarFallback></Link>
                     </Avatar>
                     <div className='flex items-center gap-3'>
                          <Link to = {`/profile/${post?.author?._id}`}><h1>{post.author?.username}</h1></Link>

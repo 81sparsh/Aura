@@ -51,7 +51,7 @@ const SuggestedUsers = () => {
                                 <Link to={`/profile/${suggested?._id}`}>
                                     <Avatar>
                                         <AvatarImage src={suggested?.profilePicture} alt="post_image" />
-                                        <AvatarFallback>  <img src={suggested?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></AvatarFallback>
+                                        <AvatarFallback>  <img src={suggested?.profilePicture || '/profile.jpeg'} alt="default" className="w-full h-full object-cover" /></AvatarFallback>
                                     </Avatar>
                                 </Link>
                                 <div>

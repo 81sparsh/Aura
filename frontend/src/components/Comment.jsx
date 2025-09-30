@@ -12,7 +12,7 @@ const Comment = ({ comment }) => {
                     </Link>
                     <Link to={`/profile/${comment?.author?._id}`}>
                       <AvatarFallback>
-                        <img src={comment?.author?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
+                        <img src={comment?.author?.profilePicture || '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
                       </AvatarFallback>
                     </Link>
                 </Avatar>

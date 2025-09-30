@@ -85,7 +85,7 @@ const EditProfile = () => {
                         <Avatar>
                             <AvatarImage src={user?.profilePicture} alt="post_image" />
                             <AvatarFallback>
-                                <img src={user?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
+                                <img src={user?.profilePicture || '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
                             </AvatarFallback>
                         </Avatar>
                         <div>

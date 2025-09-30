@@ -83,7 +83,7 @@ const SuggestedBox = () => {
                                 <Avatar className="h-16 w-16 mb-2">
                                     <AvatarImage src={suggested?.profilePicture} alt="profile" />
                                     <AvatarFallback>
-                                        <img src={suggested?.profilePicture ? '' : '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
+                                        <img src={suggested?.profilePicture ||  '/profile.jpeg'} alt="default" className="w-full h-full object-cover" />
                                     </AvatarFallback>
                                 </Avatar>
                             </Link>
