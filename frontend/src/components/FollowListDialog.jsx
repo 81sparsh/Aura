@@ -27,10 +27,10 @@ const FollowListDialog = ({ open, setOpen, userId, type = 'followers' }) => {
     const fetchList = async () => {
       try {
         setLoading(true);
-        const url = type === 'following'
+        const apiUrl = type === 'following'
           ? `${url}/api/v1/user/${userId}/following`
           : `${url}/api/v1/user/${userId}/followers`;
-        const res = await axios.get(url, { withCredentials: true });
+        const res = await axios.get(apiUrl, { withCredentials: true });
         const list = type === 'following' ? (res.data.following || []) : (res.data.followers || []);
         setUsers(list);
       } catch (err) {

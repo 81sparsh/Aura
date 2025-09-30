@@ -42,7 +42,7 @@ const Profile = () => {
 
   const handleFollowToggle = async () => {
     try {
-      const res = await axios.post(`${url}api/v1/user/followorunfollow/${userProfile?._id}`, {}, { withCredentials: true });
+      const res = await axios.post(`${url}/api/v1/user/followorunfollow/${userProfile?._id}`, {}, { withCredentials: true });
       if (res.data.success) {
         const isNowFollowing = res.data.type === 'followed';
 
